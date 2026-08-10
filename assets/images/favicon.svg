@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Clean Simple Solid Icon Badge -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#2563EB" />
+  <!-- Crisp Wrench & Shield Mark -->
+  <path d="M 32 14 C 24 14 18 20 18 28 C 18 38 32 48 32 48 C 32 48 46 38 46 28 C 46 20 40 14 32 14 Z" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" />
+  <path d="M 28 26 L 36 34 M 36 26 L 28 34" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" />
+</svg>

@@ -1,0 +1,14 @@
+# Runtime data
+/data/
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local env overrides (optional)
+.env
+.env.local

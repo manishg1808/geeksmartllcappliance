@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" width="320" height="60">
+  <!-- Clean Simple Icon Badge -->
+  <g transform="translate(6, 6)">
+    <rect x="0" y="0" width="48" height="48" rx="12" fill="#2563EB" />
+    <!-- Wrench & Shield Mark -->
+    <path d="M 24 12 C 18 12 14 16 14 22 C 14 30 24 38 24 38 C 24 38 34 30 34 22 C 34 16 30 12 24 12 Z" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round" />
+    <path d="M 21 21 L 27 27 M 27 21 L 21 27" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Clean Brand Text -->
+  <g transform="translate(66, 0)">
+    <text x="0" y="32" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-size="24" font-weight="800" fill="#0F172A">
+      Geek<tspan fill="#2563EB">Smart</tspan>
+    </text>
+    <text x="0" y="48" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-size="11" font-weight="700" fill="#64748B" letter-spacing="0.1em">
+      LLC APPLIANCE
+    </text>
+  </g>
+</svg>

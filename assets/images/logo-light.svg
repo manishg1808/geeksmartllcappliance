@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" width="340" height="70">
+  <defs>
+    <linearGradient id="primaryGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="100%" stop-color="#00E5FF" />
+    </linearGradient>
+  </defs>
+  <!-- Shield Emblem Icon -->
+  <g transform="translate(10, 5)">
+    <path d="M 28 4 L 48 12 L 48 34 C 48 46 38 56 28 60 C 18 56 8 46 8 34 L 8 12 Z" fill="#1C2541" stroke="url(#primaryGradLight)" stroke-width="2.5" />
+    <circle cx="28" cy="28" r="10" fill="none" stroke="#00E5FF" stroke-width="2.5" stroke-dasharray="4 2" />
+    <path d="M 28 20 L 28 36 M 20 28 L 36 28" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="28" cy="28" r="4" fill="#00E5FF" />
+  </g>
+  <!-- Brand Text -->
+  <text x="75" y="36" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800" fill="#FFFFFF">Geek<tspan fill="#00E5FF">Smart</tspan></text>
+  <text x="75" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">LLC APPLIANCE</text>
+</svg>
