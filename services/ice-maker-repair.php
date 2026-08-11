@@ -1,6 +1,6 @@
 <?php
 /**
- * Service page: washer-repair
+ * Service page: ice-maker-repair
  */
-$serviceSlug = 'washer-repair';
+$serviceSlug = 'ice-maker-repair';
 require_once __DIR__ . '/../includes/service-page-content.php';

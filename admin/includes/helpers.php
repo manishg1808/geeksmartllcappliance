@@ -12,16 +12,26 @@ if (!defined('ADMIN_FORM_TYPES')) {
     function admin_form_types(): array
     {
         return [
-            'contact_page'           => 'Contact Page',
-            'booking_page'           => 'Booking Page',
-            'booking'                => 'Booking Modal',
-            'printer_quick_request'  => 'Printer Quick Request',
-            'refrigerator_service'   => 'Refrigerator Service',
-            'washer_service'         => 'Washer Service',
-            'dryer_service'          => 'Dryer Service',
-            'oven_service'           => 'Oven Service',
-            'dishwasher_service'     => 'Dishwasher Service',
-            'commercial_service'     => 'Commercial Service',
+            'contact_page'                => 'Contact Page',
+            'booking_page'                => 'Booking Page',
+            'booking'                     => 'Booking Modal',
+            'printer_quick_request'       => 'Printer Quick Request',
+            'refrigerator_service'        => 'Refrigerator Service',
+            'washer_service'              => 'Washer Service',
+            'dryer_service'               => 'Dryer Service',
+            'oven_service'                => 'Oven Service',
+            'dishwasher_service'          => 'Dishwasher Service',
+            'commercial_service'          => 'Commercial Service',
+            'cooktop_repair'              => 'Cooktop Repair',
+            'ice_maker_repair'            => 'Ice Maker Repair',
+            'microwave_repair'            => 'Microwave Repair',
+            'garbage_disposal'            => 'Garbage Disposal',
+            'trash_compactor'             => 'Trash Compactor',
+            'commercial_refrigeration'    => 'Commercial Refrigeration',
+            'commercial_kitchen'          => 'Commercial Kitchen',
+            'smart_home_hub'              => 'Smart Home Hub',
+            'tv_wall_mount'               => 'TV Wall Mount',
+            'wifi_network_setup'          => 'Wi-Fi Network Setup',
         ];
     }
 

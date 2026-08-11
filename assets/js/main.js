@@ -202,4 +202,44 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // AJAX form submissions (service pages, booking, contact, modal)
+  document.querySelectorAll('form.ajax-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('[type="submit"]');
+      const originalLabel = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending...';
+      }
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const data = await res.json();
+        if (data && data.success) {
+          if (data.redirect) {
+            window.location.href = data.redirect;
+            return;
+          }
+          alert(data.message || 'Request submitted successfully.');
+          form.reset();
+        } else {
+          alert((data && data.message) || 'Something went wrong. Please try again or call us.');
+        }
+      } catch (err) {
+        alert('Unable to submit right now. Please call our hotline or try again.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalLabel;
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+    });
+  });
 });

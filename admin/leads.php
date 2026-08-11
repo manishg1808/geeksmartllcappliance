@@ -362,7 +362,20 @@ include __DIR__ . '/includes/header.php';
               <dt>Service</dt><dd><?php echo htmlspecialchars($row['service'] ?? '—'); ?></dd>
             </dl>
             <div class="lead-card-actions action-btns">
-              <a class="btn-action btn-view" href="<?php echo htmlspecialchars($viewUrl); ?>" title="View"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>View</span></a>
+              <a class="btn-action btn-view" href="<?php echo htmlspecialchars($viewUrl); ?>" title="View lead">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>View</span>
+              </a>
+              <form class="delete-lead-form" method="post" action="<?php echo SITE_URL; ?>/admin/delete-lead.php"
+                    onsubmit="return confirm('Move this lead to Recycle Bin?');">
+                <input type="hidden" name="id" value="<?php echo $rowId; ?>">
+                <input type="hidden" name="page" value="<?php echo $page; ?>">
+                <input type="hidden" name="per_page" value="<?php echo $perPage; ?>">
+                <button type="submit" class="btn-action btn-remove" title="Remove lead">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                  <span>Remove</span>
+                </button>
+              </form>
             </div>
           </article>
         <?php endforeach; ?>
