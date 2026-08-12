@@ -79,6 +79,10 @@ if (!defined('SITE_NAME')) {
   </div>
 </footer>
 
+<button type="button" class="scroll-top-btn" id="scroll-top-btn" aria-label="Scroll to top">
+  <i data-lucide="chevron-up" style="width: 22px; height: 22px;"></i>
+</button>
+
 <?php if (file_exists(__DIR__ . '/booking-modal.php')) include_once __DIR__ . '/booking-modal.php'; ?>
 <?php if (file_exists(__DIR__ . '/cookie-consent.php')) include_once __DIR__ . '/cookie-consent.php'; ?>
 <?php if (file_exists(__DIR__ . '/mobile-navigation.php')) include_once __DIR__ . '/mobile-navigation.php'; ?>

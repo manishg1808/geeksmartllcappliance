@@ -30,6 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
   if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
 
+  const scrollTopBtn = document.getElementById('scroll-top-btn');
+  if (scrollTopBtn) {
+    const toggleScrollTop = () => {
+      scrollTopBtn.classList.toggle('is-visible', window.scrollY > 280);
+    };
+    window.addEventListener('scroll', toggleScrollTop, { passive: true });
+    toggleScrollTop();
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   // Booking Modal Logic
   const bookingModals = document.querySelectorAll('.booking-modal');
   const modalTriggers = document.querySelectorAll('[data-open-modal]');

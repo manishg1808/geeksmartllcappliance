@@ -43,44 +43,17 @@ include_once __DIR__ . '/includes/navigation.php';
       <button class="filter-tab" data-category="Smart Home & TV">Smart Home</button>
     </div>
 
-    <!-- Dynamic 17-Service Grid -->
-    <div class="grid grid-cols-3" id="services-catalog-grid">
-      <?php foreach ($servicesList as $slug => $srv): ?>
-        <div class="service-card service-catalog-item" data-category="<?php echo htmlspecialchars($srv['category']); ?>" data-title="<?php echo htmlspecialchars(strtolower($srv['title'] . ' ' . $srv['short_desc'])); ?>">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
-            <div class="service-icon-box" style="margin-bottom: 0;">
-              <i data-lucide="<?php echo htmlspecialchars($srv['icon']); ?>" style="width: 24px; height: 24px;"></i>
-            </div>
-            <span style="font-size: 0.75rem; font-weight: 700; background: var(--primary-subtle); color: var(--primary); padding: 0.3rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-accent);">
-              <?php echo htmlspecialchars($srv['category']); ?>
-            </span>
-          </div>
-
-          <h3 class="service-card-title"><?php echo htmlspecialchars($srv['title']); ?></h3>
-          <p class="service-card-desc"><?php echo htmlspecialchars($srv['short_desc']); ?></p>
-
-          <!-- Common Symptoms Preview List -->
-          <ul class="service-card-features" style="margin-bottom: 1.5rem;">
-            <?php foreach (array_slice($srv['common_issues'], 0, 2) as $issue): ?>
-              <li><i data-lucide="check-circle" style="color: var(--success); width: 16px; height: 16px; display: inline;"></i> <?php echo htmlspecialchars($issue); ?></li>
-            <?php endforeach; ?>
-          </ul>
-
-          <div style="padding-top: 1rem; margin-top: auto; border-top: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.8rem; font-weight: 700; color: var(--success); display: inline-flex; align-items: center; gap: 0.35rem;">
-              <i data-lucide="zap" style="width: 14px; height: 14px;"></i> <?php echo htmlspecialchars($srv['turnaround']); ?>
-            </span>
-            <div style="display: flex; gap: 0.5rem; align-items: center;">
-              <button class="btn btn-primary btn-sm" data-open-modal="booking-modal">
-                Book
-              </button>
-              <a href="<?php echo SITE_URL . $srv['url']; ?>" class="btn btn-outline btn-sm">
-                Details &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-      <?php endforeach; ?>
+    <!-- Dynamic 17-Service Bento Mosaic Grid -->
+    <div class="bento-grid catalog-mosaic-grid" id="services-catalog-grid">
+      <?php
+      $catalogLayouts = ['wide', 'standard', 'compact', 'featured', 'horizontal', 'accent', 'standard'];
+      $catalogIndex   = 0;
+      foreach ($servicesList as $slug => $srv):
+          $layout = $catalogLayouts[$catalogIndex % count($catalogLayouts)];
+          $catalogIndex++;
+          include __DIR__ . '/includes/service-catalog-card.php';
+      endforeach;
+      ?>
     </div>
   </div>
 </section>
@@ -272,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
       catalogItems.forEach(item => {
         const title = item.getAttribute('data-title') || '';
         if (query === '' || title.includes(query)) {
-          item.style.display = 'flex';
+          item.style.display = '';
         } else {
           item.style.display = 'none';
         }
@@ -289,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cat = tab.getAttribute('data-category');
       catalogItems.forEach(item => {
         if (cat === 'all' || item.getAttribute('data-category') === cat) {
-          item.style.display = 'flex';
+          item.style.display = '';
         } else {
           item.style.display = 'none';
         }

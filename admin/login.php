@@ -37,6 +37,7 @@ $csrf = admin_csrf_token();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Admin Login | <?php echo htmlspecialchars(SITE_NAME); ?></title>
+  <link rel="icon" type="image/svg+xml" href="<?php echo SITE_URL; ?>/assets/images/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -46,7 +47,7 @@ $csrf = admin_csrf_token();
   <div class="login-wrap">
     <div class="login-card">
       <div class="login-brand">
-        <span class="brand-mark">GS</span>
+        <img class="brand-mark" src="<?php echo SITE_URL; ?>/assets/images/favicon.svg" alt="<?php echo htmlspecialchars(SITE_NAME); ?>" width="48" height="48">
         <h1><?php echo htmlspecialchars(SITE_NAME); ?></h1>
         <p>Sign in to the admin panel</p>
       </div>

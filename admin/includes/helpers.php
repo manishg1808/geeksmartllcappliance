@@ -15,6 +15,7 @@ if (!defined('ADMIN_FORM_TYPES')) {
             'contact_page'                => 'Contact Page',
             'booking_page'                => 'Booking Page',
             'booking'                     => 'Booking Modal',
+            'homepage_quick_request'      => 'Homepage Quick Request',
             'printer_quick_request'       => 'Printer Quick Request',
             'refrigerator_service'        => 'Refrigerator Service',
             'washer_service'              => 'Washer Service',

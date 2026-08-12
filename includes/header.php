@@ -27,6 +27,8 @@ $ogImage   = $ogImage   ?? DEFAULT_OG_IMAGE;
   <meta property="og:type" content="website">
 
   <link rel="icon" type="image/svg+xml" href="<?php echo SITE_URL; ?>/assets/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="128x128" href="<?php echo SITE_URL; ?>/assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="<?php echo SITE_URL; ?>/assets/images/favicon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

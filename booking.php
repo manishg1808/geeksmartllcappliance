@@ -107,12 +107,7 @@ include_once __DIR__ . '/includes/navigation.php';
           <div class="form-group">
             <label class="form-label">Select Equipment / Service Needed *</label>
             <select name="service" class="form-select" required>
-              <option value="">-- Choose Category --</option>
-              <?php foreach ($servicesList as $key => $svc): ?>
-                <option value="<?php echo htmlspecialchars($svc['title']); ?>">
-                  <?php echo htmlspecialchars($svc['title']); ?> (<?php echo htmlspecialchars($svc['category']); ?>)
-                </option>
-              <?php endforeach; ?>
+              <?php service_select_options('-- Choose Category --', true); ?>
             </select>
           </div>
 

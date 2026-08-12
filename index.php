@@ -173,63 +173,111 @@ include_once __DIR__ . '/includes/navigation.php';
   </div>
 </section>
 
-<!-- 3. SERVICES CATALOG WITH BENTO GRID LAYOUT -->
-<section style="padding: 4.5rem 0; background: #ffffff; border-bottom: 1px solid var(--border-light);" id="catalog">
+<!-- 2.5 QUICK SERVICE REQUEST — Horizontal Lead Form -->
+<section class="home-lead-bar" id="quick-request">
   <div class="container">
-    <div style="text-align: center; max-width: 700px; margin: 0 auto 2.5rem;">
-      <div style="color: var(--primary); font-weight: 700; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Complete Catalog</div>
-      <h2 style="font-size: 2.5rem; margin-bottom: 1rem;" class="text-gradient">Appliance & Technical Services Directory</h2>
-      <p style="color: var(--text-muted); font-size: 1rem;">Select your appliance or technical equipment category below to view detailed support options.</p>
-    </div>
+    <div class="home-lead-bar-card">
+      <div class="home-lead-bar-intro">
+        <span class="home-lead-bar-badge">
+          <i data-lucide="zap" style="width: 14px; height: 14px;"></i> Fast Response
+        </span>
+        <h3>Request a Free Diagnostic Callback</h3>
+        <p>Submit your details — our technician team responds within 15 minutes.</p>
+      </div>
 
-    <!-- Category Filter Tabs Bar -->
-    <div class="filter-tabs" style="margin-bottom: 2.5rem;">
-      <button class="filter-tab active" data-category="all">All Services (17+)</button>
-      <button class="filter-tab" data-category="Kitchen Appliances">Kitchen</button>
-      <button class="filter-tab" data-category="Laundry Appliances">Laundry</button>
-      <button class="filter-tab" data-category="Printers & Tech">Tech & Printer</button>
-      <button class="filter-tab" data-category="Commercial">Commercial</button>
-    </div>
+      <form action="<?php echo SITE_URL; ?>/process-form.php" method="POST" class="home-lead-form ajax-form">
+        <input type="hidden" name="form_type" value="homepage_quick_request">
+        <input type="hidden" name="message" value="Quick service request submitted from homepage horizontal form.">
 
-    <!-- BENTO GRID SERVICES CATALOG -->
-    <div class="bento-grid" id="homepage-services-grid">
-      <?php 
-      $bentoCount = 0;
-      foreach ($servicesList as $slug => $srv):
-        $bentoCount++;
-        $isBentoSpan = ($bentoCount === 1 || $bentoCount === 2);
-      ?>
-        <div class="service-card service-catalog-item <?php echo $isBentoSpan ? 'bento-span-2 bento-card-featured' : ''; ?>" data-category="<?php echo htmlspecialchars($srv['category']); ?>">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-            <div class="service-icon-box" style="margin-bottom: 0;">
-              <i data-lucide="<?php echo htmlspecialchars($srv['icon']); ?>" style="width: 24px; height: 24px;"></i>
-            </div>
-            <span style="font-size: 0.7rem; font-weight: 700; background: var(--primary-subtle); color: var(--primary); padding: 0.25rem 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--border-accent);">
-              <?php echo htmlspecialchars($srv['category']); ?>
-            </span>
-          </div>
-          
-          <h3 class="service-card-title"><?php echo htmlspecialchars($srv['title']); ?></h3>
-          <p class="service-card-desc"><?php echo htmlspecialchars($srv['short_desc']); ?></p>
-
-          <?php if ($isBentoSpan): ?>
-            <ul class="service-card-features" style="margin-bottom: 1.25rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-              <?php foreach (array_slice($srv['common_issues'], 0, 4) as $issue): ?>
-                <li><i data-lucide="check-circle" style="color: var(--success); width: 14px; height: 14px; display: inline;"></i> <?php echo htmlspecialchars($issue); ?></li>
-              <?php endforeach; ?>
-            </ul>
-          <?php endif; ?>
-
-          <div style="padding-top: 0.85rem; margin-top: auto; border-top: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.775rem; font-weight: 700; color: var(--success); display: inline-flex; align-items: center; gap: 0.3rem;">
-              <i data-lucide="zap" style="width: 14px; height: 14px;"></i> <?php echo htmlspecialchars($srv['turnaround']); ?>
-            </span>
-            <a href="<?php echo SITE_URL . $srv['url']; ?>" class="btn btn-outline btn-sm">
-              Details &rarr;
-            </a>
-          </div>
+        <div class="home-lead-form-field">
+          <label class="sr-only" for="home-lead-name">Full Name</label>
+          <input type="text" id="home-lead-name" name="name" class="form-control" placeholder="Full name" required autocomplete="name">
         </div>
-      <?php endforeach; ?>
+
+        <div class="home-lead-form-field">
+          <label class="sr-only" for="home-lead-phone">Phone Number</label>
+          <input type="tel" id="home-lead-phone" name="phone" class="form-control" placeholder="Phone number" required autocomplete="tel">
+        </div>
+
+        <div class="home-lead-form-field">
+          <label class="sr-only" for="home-lead-email">Email Address</label>
+          <input type="email" id="home-lead-email" name="email" class="form-control" placeholder="Email address" autocomplete="email">
+        </div>
+
+        <div class="home-lead-form-field home-lead-form-field--select">
+          <label class="sr-only" for="home-lead-service">Service Needed</label>
+          <select id="home-lead-service" name="service" class="form-select" required>
+            <?php service_select_options('Select service'); ?>
+          </select>
+        </div>
+
+        <div class="home-lead-form-action">
+          <button type="submit" class="btn btn-primary home-lead-submit">
+            <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+            <span>Get Callback</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SERVICES CATALOG -->
+<section class="home-catalog-section" id="catalog">
+  <div class="container">
+    <div class="home-catalog-header">
+      <div class="home-catalog-eyebrow">Complete Catalog</div>
+      <h2 class="text-gradient home-catalog-title">Appliance & Technical Services Directory</h2>
+      <p class="home-catalog-desc">Browse our most requested services — view full details or book a technician in minutes.</p>
+    </div>
+
+    <?php
+    $homeCatalogCategories = [
+      'Kitchen Appliances' => 'Kitchen',
+      'Laundry Appliances' => 'Laundry',
+      'Printers & Tech' => 'Tech',
+      'Smart Home & TV' => 'Smart Home',
+      'Commercial' => 'Commercial',
+    ];
+    $totalServiceCount = count($servicesList);
+    $homeCatalogServices = array_slice($servicesList, 0, 9, true);
+    ?>
+
+    <div class="home-catalog-panel">
+      <div class="home-catalog-grid" id="homepage-services-grid">
+        <?php foreach ($homeCatalogServices as $slug => $srv):
+          $catLabel = $homeCatalogCategories[$srv['category']] ?? $srv['category'];
+        ?>
+          <article class="home-service-card service-catalog-item" data-category="<?php echo htmlspecialchars($srv['category']); ?>">
+            <a href="<?php echo SITE_URL . $srv['url']; ?>" class="home-service-link" aria-label="View <?php echo htmlspecialchars($srv['title']); ?> details">
+              <div class="home-service-icon">
+                <i data-lucide="<?php echo htmlspecialchars($srv['icon']); ?>"></i>
+              </div>
+              <span class="home-service-cat"><?php echo htmlspecialchars($catLabel); ?></span>
+              <h3 class="home-service-title"><?php echo htmlspecialchars($srv['title']); ?></h3>
+            </a>
+            <div class="home-service-actions">
+              <a href="<?php echo SITE_URL . $srv['url']; ?>" class="btn btn-outline btn-sm home-service-btn">
+                <span>Details</span>
+                <i data-lucide="arrow-up-right"></i>
+              </a>
+              <button type="button" class="btn btn-primary btn-sm home-service-btn" data-open-modal="booking-modal" data-service-title="<?php echo htmlspecialchars($srv['title']); ?>">
+                <span>Book</span>
+              </button>
+            </div>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
+    <div class="home-catalog-explore">
+      <p class="home-catalog-explore-text">
+        Showing <?php echo count($homeCatalogServices); ?> of <?php echo $totalServiceCount; ?> services
+      </p>
+      <a href="<?php echo SITE_URL; ?>/services.php" class="btn btn-primary home-catalog-explore-btn">
+        <span>Explore All Services</span>
+        <i data-lucide="arrow-right"></i>
+      </a>
     </div>
   </div>
 </section>

@@ -256,10 +256,6 @@ include __DIR__ . '/includes/header.php';
               $sourceLabel = admin_form_label($formType);
               $isNew       = (int) ($row['is_viewed'] ?? 0) === 0;
               $rowId       = (int) ($row['id'] ?? 0);
-              $viewUrl     = SITE_URL . '/admin/lead-view.php?id=' . $rowId . '&from_page=' . $page . '&per_page=' . $perPage;
-              if ($search !== '') {
-                  $viewUrl .= '&q=' . urlencode($search);
-              }
               ?>
               <tr class="lead-row<?php echo $isNew ? ' is-new-lead' : ' is-viewed-lead'; ?>"
                   data-id="<?php echo $rowId; ?>"
@@ -307,10 +303,10 @@ include __DIR__ . '/includes/header.php';
                 </td>
                 <td class="action-cell col-action">
                   <div class="action-btns">
-                    <a class="btn-action btn-view" href="<?php echo htmlspecialchars($viewUrl); ?>" title="View lead">
+                    <button type="button" class="btn-action btn-view btn-view-lead" data-lead-id="<?php echo $rowId; ?>" title="View lead">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                       <span>View</span>
-                    </a>
+                    </button>
                     <form class="delete-lead-form" method="post" action="<?php echo SITE_URL; ?>/admin/delete-lead.php"
                           onsubmit="return confirm('Move this lead to Recycle Bin?');">
                       <input type="hidden" name="id" value="<?php echo $rowId; ?>">
@@ -342,12 +338,8 @@ include __DIR__ . '/includes/header.php';
           $sourceLabel = admin_form_label($formType);
           $isNew       = (int) ($row['is_viewed'] ?? 0) === 0;
           $rowId       = (int) ($row['id'] ?? 0);
-          $viewUrl     = SITE_URL . '/admin/lead-view.php?id=' . $rowId . '&from_page=' . $page . '&per_page=' . $perPage;
-          if ($search !== '') {
-              $viewUrl .= '&q=' . urlencode($search);
-          }
           ?>
-          <article class="lead-card<?php echo $isNew ? ' is-new-lead' : ' is-viewed-lead'; ?>">
+          <article class="lead-card<?php echo $isNew ? ' is-new-lead' : ' is-viewed-lead'; ?>" data-id="<?php echo $rowId; ?>">
             <div class="lead-card-head">
               <code class="lead-meta-ticket" title="<?php echo htmlspecialchars($row['ticket_id']); ?>">
                 <?php echo htmlspecialchars(leads_ticket_label($row['ticket_id'])); ?>
@@ -362,10 +354,10 @@ include __DIR__ . '/includes/header.php';
               <dt>Service</dt><dd><?php echo htmlspecialchars($row['service'] ?? '—'); ?></dd>
             </dl>
             <div class="lead-card-actions action-btns">
-              <a class="btn-action btn-view" href="<?php echo htmlspecialchars($viewUrl); ?>" title="View lead">
+              <button type="button" class="btn-action btn-view btn-view-lead" data-lead-id="<?php echo $rowId; ?>" title="View lead">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 <span>View</span>
-              </a>
+              </button>
               <form class="delete-lead-form" method="post" action="<?php echo SITE_URL; ?>/admin/delete-lead.php"
                     onsubmit="return confirm('Move this lead to Recycle Bin?');">
                 <input type="hidden" name="id" value="<?php echo $rowId; ?>">
@@ -405,6 +397,19 @@ include __DIR__ . '/includes/header.php';
   <?php endif; ?>
 </section>
 
+<div class="admin-modal" id="lead-view-modal" hidden aria-hidden="true">
+  <div class="admin-modal-backdrop" data-close-lead-modal></div>
+  <div class="admin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="lead-modal-title">
+    <button type="button" class="admin-modal-close" data-close-lead-modal aria-label="Close">&times;</button>
+    <div class="admin-modal-body" id="lead-modal-body">
+      <p class="admin-modal-loading">Loading lead…</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.GS_LEAD_API = <?php echo json_encode(SITE_URL . '/admin/lead-api.php'); ?>;
+</script>
 <script src="<?php echo SITE_URL; ?>/admin/assets/leads-table.js"></script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

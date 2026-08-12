@@ -1,7 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Clean Simple Solid Icon Badge -->
-  <rect x="4" y="4" width="56" height="56" rx="14" fill="#2563EB" />
-  <!-- Crisp Wrench & Shield Mark -->
-  <path d="M 32 14 C 24 14 18 20 18 28 C 18 38 32 48 32 48 C 32 48 46 38 46 28 C 46 20 40 14 32 14 Z" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" />
-  <path d="M 28 26 L 36 34 M 36 26 L 28 34" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" />
+  <rect width="64" height="64" rx="16" fill="#2563EB"/>
+  <path d="M46 22.5c-2.3-4.2-7-7-12.4-7-8.1 0-14.6 6.3-14.6 14.5s6.5 14.5 14.6 14.5c5 0 9.4-2.4 12.1-6.2" fill="none" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round"/>
+  <path d="M32 33h14.2v8.4" fill="none" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

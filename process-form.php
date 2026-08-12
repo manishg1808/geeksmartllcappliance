@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Sanitize Inputs
 $name           = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'Valued Customer';
 $phone          = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'Not Provided';
-$email          = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?? 'not-provided@geeksmartllcappliance.com';
+$email          = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?? 'not-provided@geeksmartappliance.com';
 $service        = filter_input(INPUT_POST, 'service', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'General Appliance Service';
 $message        = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'No additional details provided.';
 $formType       = filter_input(INPUT_POST, 'form_type', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'Inquiry';

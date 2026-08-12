@@ -14,8 +14,8 @@ include_once __DIR__ . '/includes/navigation.php';
 <section class="section-padding" style="background: var(--bg-light); text-align: center;">
   <div class="container" style="max-width: 680px;">
     <div style="background: #ffffff; border-radius: var(--radius-lg); padding: 3.5rem 2rem; border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
-      <div style="width: 80px; height: 80px; background: rgba(16, 185, 129, 0.12); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem auto;">
-        <i class="ri-checkbox-circle-fill"></i>
+      <div style="width: 80px; height: 80px; background: rgba(16, 185, 129, 0.12); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+        <i data-lucide="check-circle" style="width: 44px; height: 44px;"></i>
       </div>
 
       <span class="badge badge-emerald" style="margin-bottom: 0.75rem;">Request Confirmed</span>
@@ -25,7 +25,9 @@ include_once __DIR__ . '/includes/navigation.php';
       </p>
 
       <div style="background: var(--bg-light); padding: 1.25rem; border-radius: var(--radius-md); text-align: left; margin-bottom: 2rem;">
-        <h5 style="font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;"><i class="ri-phone-line" style="color: var(--primary-accent);"></i> Need Immediate Help?</h5>
+        <h5 style="font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+          <i data-lucide="phone-call" style="width: 18px; height: 18px; color: var(--primary);"></i> Need Immediate Help?
+        </h5>
         <p style="font-size: 0.9rem; color: var(--text-muted);">
           If this is a refrigeration emergency or an urgent printer disruption, call our dispatch line directly at <a href="tel:<?php echo PHONE_RAW; ?>" style="color: var(--primary-accent); font-weight: 700;"><?php echo PHONE_NUMBER; ?></a>.
         </p>

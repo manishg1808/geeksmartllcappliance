@@ -113,6 +113,13 @@ code {
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
 }
 
+img.brand-mark {
+  padding: 0;
+  background: none;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+  object-fit: cover;
+}
+
 .login-brand h1 {
   font-family: var(--font-heading);
   font-size: 1.35rem;
@@ -165,6 +172,26 @@ code {
   color: var(--text-main);
   background: var(--bg-light);
   transition: var(--transition);
+}
+
+.field input::placeholder {
+  color: #b8c3cf;
+  font-size: 0.78rem;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.field input::-webkit-input-placeholder {
+  color: #b8c3cf;
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.field input::-moz-placeholder {
+  color: #b8c3cf;
+  font-size: 0.78rem;
+  font-weight: 400;
+  opacity: 1;
 }
 
 .field input:focus {
@@ -788,6 +815,26 @@ a.source-badge:hover {
   font-family: inherit;
   background: #fff;
   color: var(--text-main);
+}
+
+.leads-search-input::placeholder {
+  color: #b8c3cf;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.leads-search-input::-webkit-input-placeholder {
+  color: #b8c3cf;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.leads-search-input::-moz-placeholder {
+  color: #b8c3cf;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 1;
 }
 
 .leads-search-input:focus {
@@ -1503,5 +1550,151 @@ a.page-num:hover {
 
   .stat-card-primary {
     grid-column: 1 / -1;
+  }
+}
+
+/* Admin lead view popup */
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.admin-modal[hidden] {
+  display: none !important;
+}
+
+.admin-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.admin-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  max-height: calc(100vh - 2.5rem);
+  overflow-y: auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+  padding: 0.85rem 1rem 1rem;
+}
+
+.admin-modal-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--text-muted);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-modal-close:hover {
+  background: #e2e8f0;
+  color: var(--text-main);
+}
+
+.admin-modal-body {
+  padding-right: 0.25rem;
+}
+
+.admin-modal-loading,
+.admin-modal-error {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.admin-modal-error {
+  color: #b91c1c;
+}
+
+.lead-view-card-modal {
+  max-width: none;
+  border: none;
+  box-shadow: none;
+  padding: 0.15rem 2rem 0 0.15rem;
+}
+
+.lead-view-header-modal {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.lead-view-header-modal .lead-view-title {
+  font-size: 1.15rem;
+  padding-right: 1.5rem;
+}
+
+.lead-view-header-modal .lead-view-sub {
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+}
+
+.source-badge-modal {
+  display: inline-block;
+  margin-top: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-subtle);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.6rem;
+}
+
+.lead-view-grid-modal {
+  gap: 0.65rem 1rem;
+}
+
+.lead-message-block-modal {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.lead-message-block-modal .lead-message-text {
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+}
+
+body.admin-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .admin-modal-dialog {
+    max-width: 100%;
+    padding: 1rem 0.85rem 0.85rem;
+  }
+
+  .lead-view-card-modal .lead-view-grid {
+    grid-template-columns: 1fr;
   }
 }

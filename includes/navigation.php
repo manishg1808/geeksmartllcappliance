@@ -78,11 +78,6 @@ $currentScript = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
           </a>
         </li>
         <li>
-          <a href="<?php echo SITE_URL; ?>/booking.php" class="nav-link <?php echo ($currentScript === 'booking.php') ? 'active' : ''; ?>">
-            Booking
-          </a>
-        </li>
-        <li>
           <a href="<?php echo SITE_URL; ?>/contact.php" class="nav-link <?php echo ($currentScript === 'contact.php') ? 'active' : ''; ?>">
             Contact
           </a>
@@ -91,8 +86,8 @@ $currentScript = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
 
       <!-- Right Action Button -->
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="tel:<?php echo PHONE_RAW; ?>" class="btn btn-primary btn-sm" style="border-radius: var(--radius-full); font-weight: 700;">
-          <i data-lucide="phone-call" style="width: 15px; height: 15px;"></i> <?php echo PHONE_NUMBER; ?>
+        <a href="<?php echo SITE_URL; ?>/booking.php" class="btn btn-primary btn-sm nav-booking-btn">
+          <i data-lucide="calendar-check" style="width: 15px; height: 15px;"></i> Booking
         </a>
         <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation Menu">
           <i data-lucide="menu"></i>

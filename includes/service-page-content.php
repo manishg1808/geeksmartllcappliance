@@ -31,30 +31,34 @@ $formType = $formType ?? ($formTypeMap[$serviceSlug] ?? (str_replace('-', '_', $
 $pageTitle = ($pageTitle ?? null) ?: ($serviceData['title'] . ' | GeekSmart Appliance');
 $pageDesc  = ($pageDesc ?? null) ?: ($serviceData['short_desc'] . ' Same-day diagnostics and repair by GeekSmart Appliance.');
 
-// Related services from same category
+// Related services — curated per service page
 $related = [];
-foreach ($servicesList as $slug => $srv) {
-    if ($slug === $serviceSlug) {
+$relatedSlugs = $serviceData['related_slugs'] ?? [];
+foreach ($relatedSlugs as $relSlug) {
+    if ($relSlug === $serviceSlug || !isset($servicesList[$relSlug])) {
         continue;
     }
-    if (($srv['category'] ?? '') === ($serviceData['category'] ?? '')) {
-        $related[$slug] = $srv;
-    }
-    if (count($related) >= 3) {
-        break;
-    }
+    $related[$relSlug] = $servicesList[$relSlug];
 }
 if (count($related) < 3) {
     foreach ($servicesList as $slug => $srv) {
         if ($slug === $serviceSlug || isset($related[$slug])) {
             continue;
         }
-        $related[$slug] = $srv;
+        if (($srv['category'] ?? '') === ($serviceData['category'] ?? '')) {
+            $related[$slug] = $srv;
+        }
         if (count($related) >= 3) {
             break;
         }
     }
 }
+
+$whyChoose = $serviceData['why_choose'] ?? [
+    ['icon' => 'clock', 'title' => 'Same-Day Dispatch', 'desc' => 'Fast technician routing when your appliance fails.'],
+    ['icon' => 'wrench', 'title' => 'Experienced Techs', 'desc' => 'Trained on major residential and commercial brands.'],
+    ['icon' => 'badge-check', 'title' => '90-Day Protection', 'desc' => 'Parts and labor covered after approved repairs.'],
+];
 
 include_once __DIR__ . '/header.php';
 include_once __DIR__ . '/navigation.php';
@@ -142,23 +146,15 @@ include_once __DIR__ . '/navigation.php';
           </div>
         </div>
 
-        <h2 class="svc-h2">Why Choose GeekSmart</h2>
+        <h2 class="svc-h2">Why Choose GeekSmart for <?php echo htmlspecialchars($serviceData['title']); ?></h2>
         <div class="svc-benefits">
-          <div class="svc-benefit">
-            <i data-lucide="clock" style="width: 22px; height: 22px;"></i>
-            <h4>Same-Day Dispatch</h4>
-            <p>Fast technician routing when your appliance fails.</p>
-          </div>
-          <div class="svc-benefit">
-            <i data-lucide="wrench" style="width: 22px; height: 22px;"></i>
-            <h4>Experienced Techs</h4>
-            <p>Trained on major residential and commercial brands.</p>
-          </div>
-          <div class="svc-benefit">
-            <i data-lucide="badge-check" style="width: 22px; height: 22px;"></i>
-            <h4>90-Day Protection</h4>
-            <p>Parts and labor covered after approved repairs.</p>
-          </div>
+          <?php foreach ($whyChoose as $benefit): ?>
+            <div class="svc-benefit">
+              <i data-lucide="<?php echo htmlspecialchars($benefit['icon']); ?>" style="width: 22px; height: 22px;"></i>
+              <h4><?php echo htmlspecialchars($benefit['title']); ?></h4>
+              <p><?php echo htmlspecialchars($benefit['desc']); ?></p>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
 
@@ -221,7 +217,7 @@ include_once __DIR__ . '/navigation.php';
 <section class="svc-related">
   <div class="container">
     <div class="svc-related-head">
-      <h2>Related Services</h2>
+      <h2>Related Services for <?php echo htmlspecialchars(explode('&', $serviceData['title'])[0]); ?></h2>
       <a href="<?php echo SITE_URL; ?>/services.php" class="btn btn-outline btn-sm">View All Services &rarr;</a>
     </div>
     <div class="grid grid-cols-3">
