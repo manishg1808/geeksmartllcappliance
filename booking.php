@@ -25,7 +25,7 @@ include_once __DIR__ . '/includes/navigation.php';
 <!-- Dedicated Booking Interface Section -->
 <section style="padding: 4.5rem 0; background: var(--bg-light);">
   <div class="container">
-    <div style="display: grid; grid-template-columns: 1fr 1.75fr; gap: 3.5rem; align-items: start;">
+    <div class="page-split-grid page-split-grid--booking">
       
       <!-- Left Column: Booking Protocol & Assurances -->
       <div style="display: flex; flex-direction: column; gap: 1.75rem;">
@@ -88,7 +88,7 @@ include_once __DIR__ . '/includes/navigation.php';
         <form action="<?php echo SITE_URL; ?>/process-form.php" method="POST" class="ajax-form">
           <input type="hidden" name="form_type" value="booking_page">
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-row-2col">
             <div class="form-group">
               <label class="form-label">Full Name *</label>
               <input type="text" name="name" class="form-control" placeholder="e.g. Sarah Jenkins" required>
@@ -111,7 +111,7 @@ include_once __DIR__ . '/includes/navigation.php';
             </select>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-row-2col">
             <div class="form-group">
               <label class="form-label">Preferred Date *</label>
               <input type="date" name="preferred_date" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>

@@ -68,7 +68,7 @@ if (!defined('SITE_NAME')) {
       <div>
         &copy; <?php echo date('Y'); ?> <strong><?php echo SITE_NAME; ?></strong>. All rights reserved.
       </div>
-      <div style="display: flex; gap: 1.25rem;">
+      <div class="footer-policy-links">
         <a href="<?php echo SITE_URL; ?>/privacy-policy.php" style="color: #94a3b8;">Privacy Policy</a>
         <a href="<?php echo SITE_URL; ?>/terms.php" style="color: #94a3b8;">Terms of Service</a>
         <a href="<?php echo SITE_URL; ?>/refund-cancellation-policy.php" style="color: #94a3b8;">Refund Policy</a>

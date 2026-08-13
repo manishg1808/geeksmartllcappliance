@@ -8,25 +8,7 @@ CREATE DATABASE IF NOT EXISTS `geeksmartllcappli`
 USE `geeksmartllcappli`;
 
 -- ---------------------------------------------------------------------------
--- Admin users (login)
--- Default credentials: username = admin / password = Admin@123
--- ---------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS `admin_users` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(50) NOT NULL,
-  `password_hash` VARCHAR(255) NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_admin_username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `admin_users` (`username`, `password_hash`)
-VALUES (
-  'admin',
-  '$2y$10$6JlaJE5lmJmtt7Vqy6pSQeWct2xgxvijepW63t6rWWc77klSYKn5O'
-)
-ON DUPLICATE KEY UPDATE `username` = `username`;
-
+-- Form submissions (admin auth uses .env credentials — no admin_users table)
 -- ---------------------------------------------------------------------------
 -- All form submissions (single table, filter by form_type)
 -- ---------------------------------------------------------------------------

@@ -79,7 +79,7 @@ include_once __DIR__ . '/navigation.php';
           <i data-lucide="calendar-check" style="width: 18px; height: 18px;"></i>
           Book This Service
         </button>
-        <a href="tel:<?php echo PHONE_RAW; ?>" class="btn btn-outline-white btn-lg">
+        <a href="tel:<?php echo PHONE_RAW; ?>" class="btn btn-outline-white btn-lg btn-phone-wrap">
           <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
           Call <?php echo PHONE_NUMBER; ?>
         </a>
@@ -202,9 +202,9 @@ include_once __DIR__ . '/navigation.php';
               <span>Protection</span>
               <strong>90 Days</strong>
             </div>
-            <a href="tel:<?php echo PHONE_RAW; ?>" class="btn btn-outline btn-sm" style="width: 100%; justify-content: center; margin-top: 0.75rem;">
+            <a href="tel:<?php echo PHONE_RAW; ?>" class="btn btn-outline btn-sm btn-phone-wrap" style="width: 100%; justify-content: center; margin-top: 0.75rem;">
               <i data-lucide="phone-call" style="width: 16px; height: 16px;"></i>
-              Prefer to call? <?php echo PHONE_NUMBER; ?>
+              Call <?php echo PHONE_NUMBER; ?>
             </a>
           </div>
         </div>

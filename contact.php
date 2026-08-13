@@ -25,7 +25,7 @@ include_once __DIR__ . '/includes/navigation.php';
 <!-- 1. ASYMMETRIC CONTACT CARDS & FORM SPLIT GRID -->
 <section style="padding: 4.5rem 0; background: var(--bg-light);">
   <div class="container">
-    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 3rem;">
+    <div class="page-split-grid">
       <!-- Left Column: Contact Cards -->
       <div style="display: flex; flex-direction: column; gap: 1.5rem;">
         <div style="background: #ffffff; border-radius: var(--radius-lg); padding: 2rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
@@ -66,7 +66,7 @@ include_once __DIR__ . '/includes/navigation.php';
         <form action="<?php echo SITE_URL; ?>/process-form.php" method="POST" class="ajax-form">
           <input type="hidden" name="form_type" value="contact_page">
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-row-2col">
             <div class="form-group">
               <label class="form-label">Full Name *</label>
               <input type="text" name="name" class="form-control" placeholder="Your Name" required>

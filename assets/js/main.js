@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileDrawer) mobileDrawer.classList.add('open');
     if (drawerOverlay) drawerOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
+    if (window.lucide) lucide.createIcons();
   }
 
   function closeDrawer() {
@@ -142,8 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startAutoRotation() {
-      // Auto-rotation disabled per user preference
       stopAutoRotation();
+      showcaseInterval = setInterval(() => {
+        goToSlide(currentSlideIndex + 1);
+      }, 3000);
     }
 
     function stopAutoRotation() {
@@ -151,6 +154,23 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(showcaseInterval);
         showcaseInterval = null;
       }
+    }
+
+    const showcasePrevBtn = document.getElementById('showcase-prev');
+    const showcaseNextBtn = document.getElementById('showcase-next');
+
+    if (showcasePrevBtn) {
+      showcasePrevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToSlide(currentSlideIndex - 1);
+      });
+    }
+
+    if (showcaseNextBtn) {
+      showcaseNextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToSlide(currentSlideIndex + 1);
+      });
     }
 
     if (showcaseCard) {
@@ -214,6 +234,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Cookie consent banner
+  const cookieBanner = document.getElementById('cookie-banner');
+  const acceptCookies = document.getElementById('accept-cookies');
+  const cookieKey = 'gs_cookie_consent';
+
+  if (cookieBanner && acceptCookies) {
+    try {
+      if (!localStorage.getItem(cookieKey)) {
+        cookieBanner.style.display = 'flex';
+        document.body.classList.add('cookie-visible');
+        if (window.lucide) lucide.createIcons();
+      }
+    } catch (e) {
+      cookieBanner.style.display = 'none';
+    }
+
+    acceptCookies.addEventListener('click', () => {
+      try { localStorage.setItem(cookieKey, '1'); } catch (e) {}
+      cookieBanner.style.display = 'none';
+      document.body.classList.remove('cookie-visible');
+    });
+  }
 
   // AJAX form submissions (service pages, booking, contact, modal)
   document.querySelectorAll('form.ajax-form').forEach(form => {

@@ -70,6 +70,13 @@ include_once __DIR__ . '/includes/navigation.php';
       <!-- Right Column: Animated Service Showcase Widget ("Ruk Ruk Ke Animation") -->
       <div>
         <div class="hero-animated-showcase-card" id="hero-animated-showcase-card">
+          <button type="button" class="showcase-nav-btn showcase-nav-prev" id="showcase-prev" aria-label="Previous service">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <button type="button" class="showcase-nav-btn showcase-nav-next" id="showcase-next" aria-label="Next service">
+            <i data-lucide="chevron-right"></i>
+          </button>
+
           <div class="showcase-header-bar">
             <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
               <i data-lucide="play-circle" style="color: var(--primary); width: 20px; height: 20px;"></i> Featured Service Showcase
@@ -119,7 +126,7 @@ include_once __DIR__ . '/includes/navigation.php';
           <!-- Pagination & Progress Controls -->
           <div class="showcase-pagination">
             <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">
-              Hover to pause • Click dot to jump
+              Auto changes every 3s • Hover to pause
             </span>
             <div class="showcase-dots" id="showcase-dots-container"></div>
           </div>
@@ -142,7 +149,7 @@ include_once __DIR__ . '/includes/navigation.php';
   <div class="container">
     <div class="bento-grid">
       <!-- 2-Column Featured Bento Card -->
-      <div class="bento-span-2 bento-card-featured" style="padding: 1.75rem; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: space-between;">
+      <div class="bento-span-2 bento-card-featured bento-card-featured-inner">
         <div style="display: flex; align-items: center; gap: 1.25rem;">
           <div style="width: 58px; height: 58px; border-radius: 12px; background: var(--primary); color: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 8px 16px rgba(37,99,235,0.25);">
             <i data-lucide="clock" style="width: 28px; height: 28px;"></i>
@@ -515,40 +522,40 @@ include_once __DIR__ . '/includes/navigation.php';
       <p style="color: var(--text-muted); font-size: 1rem;">Lookup common digital error codes for Samsung, LG, Whirlpool, GE, and HP equipment.</p>
     </div>
 
-    <div style="background: var(--bg-light); border-radius: var(--radius-lg); border: 1px solid var(--border-light); overflow: hidden; box-shadow: var(--shadow-sm);">
-      <div style="display: grid; grid-template-columns: 1.2fr 1fr 2fr 1fr; background: var(--primary-subtle); padding: 1rem 1.5rem; font-weight: 800; font-size: 0.875rem; color: var(--primary); border-bottom: 1px solid var(--border-accent);">
+    <div class="error-code-panel">
+      <div class="error-code-head">
         <div>Brand / Manufacturer</div>
         <div>Error Code</div>
         <div>Diagnostic Cause</div>
         <div>Technician Solution</div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1.2fr 1fr 2fr 1fr; padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border-light); font-size: 0.9rem; align-items: center;">
-        <div><strong>Samsung Refrigerator</strong></div>
-        <div><span style="background: #fee2e2; color: #dc2626; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">E4 / 22E</span></div>
-        <div>Evaporator Fan Motor or Defrost Thermistor Failure</div>
-        <div><a href="<?php echo SITE_URL; ?>/services/refrigerator-repair.php" style="color: var(--primary); font-weight: 700;">Inspect Sensor &rarr;</a></div>
+      <div class="error-code-row">
+        <div data-label="Brand"><strong>Samsung Refrigerator</strong></div>
+        <div data-label="Error Code"><span class="error-code-badge">E4 / 22E</span></div>
+        <div data-label="Cause">Evaporator Fan Motor or Defrost Thermistor Failure</div>
+        <div data-label="Solution"><a href="<?php echo SITE_URL; ?>/services/refrigerator-repair.php">Inspect Sensor &rarr;</a></div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1.2fr 1fr 2fr 1fr; padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border-light); font-size: 0.9rem; align-items: center; background: #ffffff;">
-        <div><strong>LG Washing Machine</strong></div>
-        <div><span style="background: #fee2e2; color: #dc2626; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">OE Error</span></div>
-        <div>Drain Pump Blockage or Discharge Pressure Sensor Fault</div>
-        <div><a href="<?php echo SITE_URL; ?>/services/washer-repair.php" style="color: var(--primary); font-weight: 700;">Clear Pump Line &rarr;</a></div>
+      <div class="error-code-row">
+        <div data-label="Brand"><strong>LG Washing Machine</strong></div>
+        <div data-label="Error Code"><span class="error-code-badge">OE Error</span></div>
+        <div data-label="Cause">Drain Pump Blockage or Discharge Pressure Sensor Fault</div>
+        <div data-label="Solution"><a href="<?php echo SITE_URL; ?>/services/washer-repair.php">Clear Pump Line &rarr;</a></div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1.2fr 1fr 2fr 1fr; padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border-light); font-size: 0.9rem; align-items: center;">
-        <div><strong>Whirlpool Dryer</strong></div>
-        <div><span style="background: #fee2e2; color: #dc2626; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">E1 / F1</span></div>
-        <div>Primary Control Board or Thermal Cutoff Fuse Triggered</div>
-        <div><a href="<?php echo SITE_URL; ?>/services/dryer-repair.php" style="color: var(--primary); font-weight: 700;">Replace Fuse &rarr;</a></div>
+      <div class="error-code-row">
+        <div data-label="Brand"><strong>Whirlpool Dryer</strong></div>
+        <div data-label="Error Code"><span class="error-code-badge">E1 / F1</span></div>
+        <div data-label="Cause">Primary Control Board or Thermal Cutoff Fuse Triggered</div>
+        <div data-label="Solution"><a href="<?php echo SITE_URL; ?>/services/dryer-repair.php">Replace Fuse &rarr;</a></div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1.2fr 1fr 2fr 1fr; padding: 1.1rem 1.5rem; font-size: 0.9rem; align-items: center; background: #ffffff;">
-        <div><strong>HP LaserJet Printer</strong></div>
-        <div><span style="background: #fee2e2; color: #dc2626; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">79.2FE0</span></div>
-        <div>Internal Firmware Spooler & Network IP Address Conflict</div>
-        <div><a href="<?php echo SITE_URL; ?>/printer-service.php" style="color: var(--primary); font-weight: 700;">Reset Wireless IP &rarr;</a></div>
+      <div class="error-code-row">
+        <div data-label="Brand"><strong>HP LaserJet Printer</strong></div>
+        <div data-label="Error Code"><span class="error-code-badge">79.2FE0</span></div>
+        <div data-label="Cause">Internal Firmware Spooler &amp; Network IP Address Conflict</div>
+        <div data-label="Solution"><a href="<?php echo SITE_URL; ?>/printer-service.php">Reset Wireless IP &rarr;</a></div>
       </div>
     </div>
 

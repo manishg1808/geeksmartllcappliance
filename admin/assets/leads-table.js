@@ -85,6 +85,32 @@
 
   loadColumns();
 
+  function applyMobileDefaults() {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+
+    try {
+      if (!localStorage.getItem(STORAGE_VIEW)) {
+        setView('grid');
+      }
+    } catch (e) {}
+
+    try {
+      if (localStorage.getItem(STORAGE_COLS)) return;
+    } catch (e) { return; }
+
+    ['col-email', 'col-message', 'col-service'].forEach(function (col) {
+      applyColumn(col, false);
+      var cb = panel.querySelector('.col-toggle[data-col="' + col + '"]');
+      if (cb) cb.checked = false;
+    });
+  }
+
+  applyMobileDefaults();
+
+  window.addEventListener('resize', function () {
+    applyMobileDefaults();
+  });
+
   var resetCols = document.getElementById('tb-reset-columns');
   if (resetCols) {
     resetCols.addEventListener('click', function () {
@@ -255,6 +281,9 @@
 
   function openLeadModal() {
     if (!leadModal) return;
+    var sidebar = document.getElementById('admin-sidebar');
+    if (sidebar) sidebar.classList.remove('is-open');
+    document.body.classList.remove('sidebar-open');
     leadModal.hidden = false;
     leadModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('admin-modal-open');

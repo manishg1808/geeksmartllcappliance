@@ -11,29 +11,28 @@ $currentScript = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
 <!-- Top Bar -->
 <div class="top-bar">
   <div class="container">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.85rem;">
-      <div>
-        <span><i data-lucide="phone-call" style="color: var(--cyan); width: 14px; height: 14px; vertical-align: middle;"></i> Hotline: <a href="tel:<?php echo PHONE_RAW; ?>" style="color: #ffffff; font-weight: 700;"><?php echo PHONE_NUMBER; ?></a></span>
-        <span style="margin-left: 1.25rem;"><i data-lucide="map-pin" style="color: var(--cyan); width: 14px; height: 14px; vertical-align: middle;"></i> <?php echo SERVICE_AREA; ?></span>
+    <div class="top-bar-inner">
+      <div class="top-bar-hotline">
+        <span><i data-lucide="phone-call" style="color: var(--primary); width: 14px; height: 14px; vertical-align: middle;"></i> Hotline: <a href="tel:<?php echo PHONE_RAW; ?>"><?php echo PHONE_NUMBER; ?></a></span>
       </div>
-      <div>
-        <span style="color: var(--cyan); font-weight: 600;"><span class="pulse-dot"></span> Same-Day Emergency Service Available</span>
+      <div class="top-bar-emergency">
+        <span><span class="pulse-dot"></span> Same-Day Emergency Service Available</span>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Main Header -->
-<header class="header" style="background: #ffffff; border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000;">
+<header class="header">
   <div class="container">
-    <nav class="navbar" style="height: 76px; display: flex; align-items: center; justify-content: space-between;">
+    <nav class="navbar">
       <!-- Simple Logo -->
-      <a href="<?php echo SITE_URL; ?>/index.php" class="brand-logo" style="display: flex; align-items: center;">
-        <img src="<?php echo SITE_URL; ?>/assets/images/logo.svg" alt="<?php echo SITE_NAME; ?>" width="210" height="44" style="height: 44px; width: auto;">
+      <a href="<?php echo SITE_URL; ?>/index.php" class="brand-logo">
+        <img src="<?php echo SITE_URL; ?>/assets/images/logo.svg" alt="<?php echo SITE_NAME; ?>" width="210" height="44">
       </a>
 
       <!-- Navigation Menu Links -->
-      <ul class="nav-menu" style="display: flex; align-items: center; gap: 1.75rem; list-style: none;">
+      <ul class="nav-menu">
         <li>
           <a href="<?php echo SITE_URL; ?>/index.php" class="nav-link <?php echo ($currentScript === 'index.php') ? 'active' : ''; ?>">
             Home
@@ -85,9 +84,9 @@ $currentScript = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
       </ul>
 
       <!-- Right Action Button -->
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div class="navbar-actions">
         <a href="<?php echo SITE_URL; ?>/booking.php" class="btn btn-primary btn-sm nav-booking-btn">
-          <i data-lucide="calendar-check" style="width: 15px; height: 15px;"></i> Booking
+          <i data-lucide="calendar-check" style="width: 15px; height: 15px;"></i> <span class="nav-booking-label">Booking</span>
         </a>
         <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation Menu">
           <i data-lucide="menu"></i>

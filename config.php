@@ -4,6 +4,14 @@
  * Global Configuration, Environment Helper & Service Registry
  */
 
+require_once __DIR__ . '/includes/env.php';
+load_env(__DIR__ . '/.env');
+
+if (!env('APP_DEBUG', false)) {
+    ini_set('display_errors', '0');
+    error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+}
+
 // Site Base URL Detection
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
@@ -32,27 +40,22 @@ define('SITE_NAME', 'GeekSmart Appliance');
 define('SITE_TAGLINE', 'Reliable Appliance Repair & Tech Assistance – Fast, Onsite & Remote Support');
 define('PHONE_NUMBER', '(808) 999-7791');
 define('PHONE_RAW', '+18089997791');
-define('EMAIL_ADDRESS', 'support@geeksmartappliance.com');
-define('NOTIFICATION_EMAIL', 'mayank10153@gmail.com');
+define('EMAIL_ADDRESS', env('EMAIL_ADDRESS', 'support@geeksmartappliance.com'));
 define('BUSINESS_ADDRESS', 'GeekSmart Tech & Appliance Hub, British Columbia, Canada');
 define('BUSINESS_HOURS', 'Mon–Sat: 8:00 AM – 8:00 PM');
 define('SERVICE_AREA', 'Appliance Repair & Tech Support Available Across BC & Surrounding Areas');
 define('RATING_SCORE', '4.9');
 define('RATING_COUNT', '1,680+');
 
-// Database Configuration (XAMPP MySQL defaults)
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'geeksmartllcappli');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// Database Configuration
+define('DB_HOST', env('DB_HOST', 'localhost'));
+define('DB_NAME', env('DB_NAME', 'geeksmartllcappli'));
+define('DB_USER', env('DB_USER', 'root'));
+define('DB_PASS', env('DB_PASS', ''));
 
-// Gmail SMTP Mail Configuration
-define('SMTP_ENABLED', true);
-define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_PORT', 587);
-define('SMTP_USERNAME', 'mayank10153@gmail.com');
-define('SMTP_PASSWORD', 'ukne gqru woyy bvaz');
-define('SMTP_ENCRYPTION', 'tls');
+// Admin credentials (loaded from .env only)
+define('ADMIN_USERNAME', env('ADMIN_USERNAME', ''));
+define('ADMIN_PASSWORD', env('ADMIN_PASSWORD', ''));
 
 // Global SEO Defaults
 define('DEFAULT_META_TITLE', 'GeekSmart Appliance | Professional Appliance Repair & Tech Support');

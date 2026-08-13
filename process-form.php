@@ -5,37 +5,65 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/includes/db.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
-// Ensure Request is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
     exit;
 }
 
-// Sanitize Inputs
-$name           = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'Valued Customer';
-$phone          = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'Not Provided';
-$email          = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?? 'not-provided@geeksmartappliance.com';
-$service        = filter_input(INPUT_POST, 'service', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'General Appliance Service';
-$message        = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'No additional details provided.';
-$formType       = filter_input(INPUT_POST, 'form_type', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'Inquiry';
-$preferredDate  = filter_input(INPUT_POST, 'preferred_date', FILTER_SANITIZE_SPECIAL_CHARS);
-$preferredTime  = filter_input(INPUT_POST, 'preferred_time', FILTER_SANITIZE_SPECIAL_CHARS);
-$printerModel   = filter_input(INPUT_POST, 'printer_model', FILTER_SANITIZE_SPECIAL_CHARS);
-$issueType      = filter_input(INPUT_POST, 'issue_type', FILTER_SANITIZE_SPECIAL_CHARS);
+/**
+ * Read and trim a POST string field.
+ */
+function form_post_string(string $key, string $default = ''): string
+{
+    $value = $_POST[$key] ?? $default;
+    if (!is_string($value)) {
+        return $default;
+    }
+    return trim($value);
+}
 
-// Normalize empty optional fields to null
-$preferredDate = ($preferredDate !== null && $preferredDate !== '') ? $preferredDate : null;
-$preferredTime = ($preferredTime !== null && $preferredTime !== '') ? $preferredTime : null;
-$printerModel  = ($printerModel !== null && $printerModel !== '') ? $printerModel : null;
-$issueType     = ($issueType !== null && $issueType !== '') ? $issueType : null;
+/**
+ * Read and validate an optional email field.
+ */
+function form_post_email(string $key, string $default = 'not-provided@geeksmartappliance.com'): string
+{
+    $value = form_post_string($key);
+    if ($value === '') {
+        return $default;
+    }
+    $validated = filter_var($value, FILTER_VALIDATE_EMAIL);
+    return $validated !== false ? $validated : $default;
+}
+
+$name          = form_post_string('name', 'Valued Customer');
+$phone         = form_post_string('phone', 'Not Provided');
+$email         = form_post_email('email');
+$service       = form_post_string('service', 'General Appliance Service');
+$message       = form_post_string('message', 'No additional details provided.');
+$formType      = form_post_string('form_type', 'Inquiry');
+$preferredDate = form_post_string('preferred_date');
+$preferredTime = form_post_string('preferred_time');
+$printerModel  = form_post_string('printer_model');
+$issueType     = form_post_string('issue_type');
+
+$preferredDate = $preferredDate !== '' ? $preferredDate : null;
+$preferredTime = $preferredTime !== '' ? $preferredTime : null;
+$printerModel  = $printerModel  !== '' ? $printerModel  : null;
+$issueType     = $issueType     !== '' ? $issueType     : null;
+
+if ($name === '' || $phone === '') {
+    http_response_code(422);
+    echo json_encode(['success' => false, 'message' => 'Name and phone are required.']);
+    exit;
+}
 
 $submissionTime = date('Y-m-d H:i:s');
 $clientIp       = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
-$ticketId       = 'GS-' . time() . '-' . rand(100, 999);
+$ticketId       = 'GS-' . time() . '-' . random_int(100, 999);
 
-// Prepare Log Entry
 $logEntry = [
     'id'             => $ticketId,
     'date'           => $submissionTime,
@@ -49,10 +77,11 @@ $logEntry = [
     'preferred_time' => $preferredTime,
     'printer_model'  => $printerModel,
     'issue_type'     => $issueType,
-    'ip'             => $clientIp
+    'ip'             => $clientIp,
 ];
 
-// Persist to MySQL
+$savedToDb = false;
+
 try {
     $stmt = db()->prepare(
         'INSERT INTO form_submissions
@@ -77,62 +106,36 @@ try {
         ':ip_address'     => $clientIp,
         ':created_at'     => $submissionTime,
     ]);
+    $savedToDb = true;
 } catch (Throwable $e) {
-    // Fail silently for DB so lead still gets JSON backup + email response;
-    // log error locally for debugging without exposing details to the client.
     error_log('form_submissions INSERT failed: ' . $e->getMessage());
 }
 
-// Local JSON Backup Logging
 $dataDir = __DIR__ . '/data';
 if (!is_dir($dataDir)) {
     @mkdir($dataDir, 0755, true);
 }
 $logFile = $dataDir . '/submissions.json';
-$existingLogs = file_exists($logFile) ? json_decode(file_get_contents($logFile), true) : [];
-if (!is_array($existingLogs)) $existingLogs = [];
+$existingLogs = file_exists($logFile) ? json_decode((string) file_get_contents($logFile), true) : [];
+if (!is_array($existingLogs)) {
+    $existingLogs = [];
+}
 array_unshift($existingLogs, $logEntry);
 @file_put_contents($logFile, json_encode($existingLogs, JSON_PRETTY_PRINT));
 
-// Mail Delivery
-$to = NOTIFICATION_EMAIL;
-$subject = "New " . SITE_NAME . " Lead: " . $service . " (" . $name . ")";
-$emailBody = "
---------------------------------------------------
-NEW APPLIANCE / TECH LEAD SUBMISSION
---------------------------------------------------
-Ticket ID: {$ticketId}
-Date/Time: {$submissionTime}
-Form Type: {$formType}
+if (!$savedToDb) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'We could not save your request right now. Please call us at ' . PHONE_NUMBER . '.',
+    ]);
+    exit;
+}
 
-Customer Name: {$name}
-Phone Number : {$phone}
-Email Address: {$email}
-Requested Svc: {$service}
-Preferred Date: " . ($preferredDate ?? 'N/A') . "
-Preferred Time: " . ($preferredTime ?? 'N/A') . "
-Printer Model : " . ($printerModel ?? 'N/A') . "
-Issue Type    : " . ($issueType ?? 'N/A') . "
-
-Problem Notes:
-{$message}
-
-Client IP    : {$clientIp}
---------------------------------------------------
-";
-
-$headers = [];
-$headers[] = "From: " . SITE_NAME . " <" . EMAIL_ADDRESS . ">";
-$headers[] = "Reply-To: " . $email;
-$headers[] = "X-Mailer: PHP/" . phpversion();
-
-$mailSent = @mail($to, $subject, $emailBody, implode("\r\n", $headers));
-
-// AJAX Response
 echo json_encode([
-    'success' => true,
-    'message' => 'Thank you! Your request has been received. Our certified technician will contact you at ' . htmlspecialchars($phone) . ' shortly.',
+    'success'   => true,
+    'message'   => 'Thank you! Your request has been received. Our certified technician will contact you at ' . htmlspecialchars($phone) . ' shortly.',
     'ticket_id' => $ticketId,
-    'redirect' => SITE_URL . '/thank-you.php?ticket=' . urlencode($ticketId)
+    'redirect'  => SITE_URL . '/thank-you.php?ticket=' . urlencode($ticketId),
 ]);
 exit;

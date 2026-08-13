@@ -1698,3 +1698,138 @@ body.admin-modal-open {
     grid-template-columns: 1fr;
   }
 }
+
+/* ========== Mobile / Touch Enhancements ========== */
+.table-wrap {
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.table-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  pointer-events: none;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .table-wrap::after {
+    opacity: 1;
+  }
+
+  .admin-topbar {
+    padding: 0 1rem;
+  }
+
+  .admin-content {
+    padding: 1rem 0.85rem;
+  }
+
+  .panel-head-leads {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .toolbar-actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .leads-search-form {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .leads-search-form .tb-btn-primary {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .tb-btn,
+  .sidebar-toggle,
+  .btn-action,
+  .admin-modal-close,
+  .page-num-sm,
+  .page-btn-sm {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .btn-action {
+    width: 44px;
+    height: 44px;
+  }
+
+  .admin-modal-close {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pagination-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    text-align: center;
+  }
+
+  .pagination-range {
+    font-size: 0.78rem;
+  }
+
+  .page-num-sm,
+  .page-btn-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .tb-dropdown-menu {
+    left: auto;
+    right: 0;
+    max-width: calc(100vw - 2rem);
+  }
+
+  .user-avatar {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .topbar-user {
+    gap: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .login-body {
+    padding: 1rem;
+  }
+
+  .recycle-bin-table .action-cell,
+  .data-table .action-cell {
+    min-width: 96px;
+  }
+
+  .action-btns {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 960px) {
+  body.sidebar-open {
+    overflow: hidden;
+  }
+
+  body.sidebar-open::after {
+    pointer-events: auto;
+    cursor: pointer;
+  }
+}
+

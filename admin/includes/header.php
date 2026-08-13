@@ -69,7 +69,7 @@ $adminBase     = SITE_URL . '/admin';
           <h1><?php echo htmlspecialchars($pageTitle); ?></h1>
         </div>
         <div class="topbar-user">
-          <span class="user-avatar"><?php echo strtoupper(substr($adminUsername, 0, 1)); ?></span>
+          <span class="user-avatar" title="<?php echo htmlspecialchars($adminUsername); ?>" aria-label="<?php echo htmlspecialchars($adminUsername); ?>"><?php echo strtoupper(substr($adminUsername, 0, 1)); ?></span>
           <span class="user-name"><?php echo htmlspecialchars($adminUsername); ?></span>
         </div>
       </header>

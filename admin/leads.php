@@ -351,6 +351,12 @@ include __DIR__ . '/includes/header.php';
             <dl class="lead-card-dl">
               <dt>Name</dt><dd><?php echo htmlspecialchars($row['name'] ?? '—'); ?></dd>
               <dt>Phone</dt><dd><?php echo htmlspecialchars($row['phone'] ?? '—'); ?></dd>
+              <dt>Email</dt><dd><?php
+                $gridEmail = $row['email'] ?? '';
+                echo ($gridEmail !== '' && strpos($gridEmail, 'not-provided@') === false)
+                  ? htmlspecialchars($gridEmail)
+                  : '—';
+              ?></dd>
               <dt>Service</dt><dd><?php echo htmlspecialchars($row['service'] ?? '—'); ?></dd>
             </dl>
             <div class="lead-card-actions action-btns">

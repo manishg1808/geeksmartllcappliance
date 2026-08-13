@@ -18,6 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!admin_csrf_validate($token)) {
         $error = 'Invalid session token. Please try again.';
+    } elseif (admin_login_is_locked()) {
+        $mins = (int) ceil(admin_login_lockout_remaining() / 60);
+        $error = 'Too many failed attempts. Try again in about ' . max(1, $mins) . ' minute(s).';
     } elseif (admin_attempt_login($username, $password)) {
         header('Location: ' . SITE_URL . '/admin/leads.php');
         exit;

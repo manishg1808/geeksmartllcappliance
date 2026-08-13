@@ -1,0 +1,19 @@
+# Block direct web access to environment and sensitive files
+<FilesMatch "^(\.env|\.env\.example|\.env\.local)$">
+  Require all denied
+</FilesMatch>
+
+# Block direct access to includes and data directories
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^includes/ - [F,L]
+  RewriteRule ^data/ - [F,L]
+  RewriteRule ^database/ - [F,L]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
